@@ -27,6 +27,8 @@ public class BigInt {
   public int intValue() { return this.x.intValue(); }
   public String toString() { return this.x.toString(); }
   public byte[] toByteArray() { return this.x.toByteArray(); }
+  public int signum() { return this.x.signum(); }
+  public int compareTo(BigInt x) { return this.x.compareTo(x.x); }
 
   /* Simple arithmetic methods pass through to BigInteger methods */
   public BigInt and(BigInt x) { return new BigInt(this.x.and(x.x)); }
@@ -34,6 +36,7 @@ public class BigInt {
   public BigInt add(BigInt x) { return new BigInt(this.x.add(x.x)); }
   public BigInt subtract(BigInt x) { return new BigInt(this.x.subtract(x.x)); }
   public BigInt multiply(BigInt x) { return new BigInt(this.x.multiply(x.x)); }
+  public BigInt divide(BigInt x) { return new BigInt(this.x.divide(x.x)); }
   public BigInt shiftRight(int x) { return new BigInt(this.x.shiftRight(x)); }
 
   public BigInt modPow(BigInt exponent, BigInt modulus) {
@@ -48,10 +51,26 @@ public class BigInt {
   }
 
   public BigInt modInverse(BigInt modulus) {
-    return new BigInt(this.x.modInverse(modulus.x));
+    BigInt t2, r2;
+    BigInt t = ZERO;
+    BigInt newt = ONE;
+    BigInt r = modulus;
+    BigInt newr = this;
+
+    while (!newr.isZero()) {
+        BigInt q = r.divide(newr);
+        t2 = newt;
+        r2 = newr;
+        newt = t.subtract(q.multiply(newt));
+        newr = r.subtract(q.multiply(newr));
+        t = t2;
+        r = r2;
+    }
+
+    return t.signum() == -1 ? t.add(modulus) : t;
   }
 
-  public BigInt gcd(BigInt modulus) {
-    return new BigInt(this.x.gcd(modulus.x));
+  public BigInt gcd(BigInt x) {
+    return x.isZero() ? this : x.gcd(this.mod(x));
   }
 }
