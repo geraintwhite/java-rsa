@@ -1,6 +1,7 @@
 package Assignment2;
 
 import java.math.BigInteger;
+import java.util.Random;
 
 public class BigInt {
   private BigInteger x;
@@ -10,6 +11,7 @@ public class BigInt {
 
   public BigInt(String x) { this.x = new BigInteger(x); }
   public BigInt(BigInteger x) { this.x = x; }
+  public BigInt(int b, Random r) { this.x = new BigInteger(b, r); }
 
   public boolean isZero() { return this.x.equals(ZERO.x); }
   public boolean isOne() { return this.x.equals(ONE.x); }
