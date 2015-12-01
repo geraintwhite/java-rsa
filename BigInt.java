@@ -19,6 +19,7 @@ public class BigInt {
 
   public BigInt and(BigInt x) { return new BigInt(this.x.and(x.x)); }
   public BigInt mod(BigInt x) { return new BigInt(this.x.mod(x.x)); }
+  public BigInt add(BigInt x) { return new BigInt(this.x.add(x.x)); }
   public BigInt subtract(BigInt x) { return new BigInt(this.x.subtract(x.x)); }
   public BigInt multiply(BigInt x) { return new BigInt(this.x.multiply(x.x)); }
   public BigInt shiftRight(int x) { return new BigInt(this.x.shiftRight(x)); }
@@ -30,5 +31,13 @@ public class BigInt {
       exponent = exponent.subtract(ONE);
     }
     return c;
+  }
+
+  public BigInt modInverse(BigInt modulus) {
+    return new BigInt(this.x.modInverse(modulus.x));
+  }
+
+  public BigInt gcd(BigInt modulus) {
+    return new BigInt(this.x.gcd(modulus.x));
   }
 }
