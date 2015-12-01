@@ -5,14 +5,14 @@ import java.math.BigInteger;
 public class BigInt {
   private BigInteger x;
 
-  private static final BigInteger ZERO = new BigInteger("0");
-  private static final BigInteger ONE = new BigInteger("1");
+  public static final BigInt ZERO = new BigInt("0");
+  public static final BigInt ONE = new BigInt("1");
 
   public BigInt(String x) { this.x = new BigInteger(x); }
   public BigInt(BigInteger x) { this.x = x; }
 
-  public boolean isZero() { return this.x.equals(ZERO); }
-  public boolean isOne() { return this.x.equals(ONE); }
+  public boolean isZero() { return this.x.equals(ZERO.x); }
+  public boolean isOne() { return this.x.equals(ONE.x); }
   public int intValue() { return this.x.intValue(); }
 
   public BigInt and(BigInt x) { return new BigInt(this.x.and(x.x)); }
@@ -22,10 +22,10 @@ public class BigInt {
   public BigInt shiftRight(int x) { return new BigInt(this.x.shiftRight(x)); }
 
   public BigInt modPow(BigInt exponent, BigInt modulus) {
-    BigInt c = new BigInt(ONE);
+    BigInt c = ONE;
     while (!exponent.isZero()) {
       c = this.multiply(c).mod(modulus);
-      exponent = exponent.subtract(new BigInt(ONE));
+      exponent = exponent.subtract(ONE);
     }
     return c;
   }
