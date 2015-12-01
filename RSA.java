@@ -52,9 +52,38 @@ public class RSA {
     this.d = this.e.modInverse(phi);
   }
 
+  /**
+   * Encrypt a message with the stored public key
+   *
+   * @param  message text to be encrypted
+   * @return         encrypted text
+   */
+  public String encrypt(String message) {
+    BigInt bytes = new BigInt(message.getBytes());
+    return bytes.modPow(this.e, this.n).toString();
+  }
+
+  /**
+   * Decrypt a message with the stored private key
+   *
+   * @param  message text to be decrypted
+   * @return         decrypted text
+   */
+  public String decrypt(String message) {
+    BigInt bytes = new BigInt(message);
+    return new String(bytes.modPow(this.d, this.n).toByteArray());
+  }
+
   public static void main(String[] args) {
     RSA rsa = new RSA(2048);
 
-    rsa.generateKeys();
+    String plaintext = "The quick brown fox jumps over the lazy dog";
+    System.out.println("Plaintext: " + plaintext);
+
+    String ciphertext = rsa.encrypt(plaintext);
+    System.out.println("Ciphertext: " + ciphertext);
+
+    plaintext = rsa.decrypt(ciphertext);
+    System.out.println("Plaintext: " + plaintext);
   }
 }
