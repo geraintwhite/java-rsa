@@ -15,8 +15,8 @@ public class RSA {
   /**
    * Create instance with someone else's public key
    *
-   * @param n component of public key
-   * @param e component of public key
+   * @param n the n component of public key
+   * @param e the e component of public key
    */
   public RSA(BigInt n, BigInt e) {
     this.n = n;
