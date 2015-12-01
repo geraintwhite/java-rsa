@@ -39,6 +39,14 @@ public class BigInt {
   public BigInt divide(BigInt x) { return new BigInt(this.x.divide(x.x)); }
   public BigInt shiftRight(int x) { return new BigInt(this.x.shiftRight(x)); }
 
+
+  /**
+   * Returns BigInt with value (this<sup>exponent</sup> mod modulus)
+   *
+   * @param  exponent the exponent
+   * @param  modulus  the modulus
+   * @return          this<sup>exponent</sup> mod modulus
+   */
   public BigInt modPow(BigInt exponent, BigInt modulus) {
     BigInt c = ONE;
     BigInt t = this;
@@ -50,6 +58,12 @@ public class BigInt {
     return c;
   }
 
+  /**
+   * Returns BigInt with value (this<sup>-1</sup> mod modulus)
+   *
+   * @param  modulus the modulus
+   * @return         this<sup>-1</sup> mod modulus
+   */
   public BigInt modInverse(BigInt modulus) {
     BigInt t2, r2;
     BigInt t = ZERO;
@@ -70,6 +84,12 @@ public class BigInt {
     return t.signum() == -1 ? t.add(modulus) : t;
   }
 
+  /**
+   * Returns BigInt with value of greatest common divisor of this and x
+   *
+   * @param  x value to compute GCD with
+   * @return   GCD(this, x)
+   */
   public BigInt gcd(BigInt x) {
     return x.isZero() ? this : x.gcd(this.mod(x));
   }
