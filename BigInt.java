@@ -38,9 +38,11 @@ public class BigInt {
 
   public BigInt modPow(BigInt exponent, BigInt modulus) {
     BigInt c = ONE;
+    BigInt t = this;
     while (!exponent.isZero()) {
-      c = this.multiply(c).mod(modulus);
-      exponent = exponent.subtract(ONE);
+      if (exponent.and(ONE).isOne()) { c = c.multiply(t).mod(modulus); }
+      exponent = exponent.shiftRight(1);
+      t = t.multiply(t).mod(modulus);
     }
     return c;
   }
