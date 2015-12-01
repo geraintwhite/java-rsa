@@ -33,14 +33,14 @@ public class RSA {
     this.generateKeys();
   }
 
-  /*
+  /**
    * Generate public/private key pair
    */
   public void generateKeys() {
     SecureRandom r = new SecureRandom();
 
-    BigInt p = new BigInt(this.bits / 2, r);
-    BigInt q = new BigInt(this.bits / 2, r);
+    BigInt p = new BigInt(this.bits / 2, 100, r);
+    BigInt q = new BigInt(this.bits / 2, 100, r);
 
     this.n = p.multiply(q);
     BigInt phi = (p.subtract(BigInt.ONE)).multiply(q.subtract(BigInt.ONE));
