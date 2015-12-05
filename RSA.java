@@ -43,11 +43,11 @@ public class RSA {
     BigInt q = BigInt.probablePrime(this.bits, r);
 
     this.n = p.multiply(q);
-    BigInt phi = (p.subtract(BigInt.ONE)).multiply(q.subtract(BigInt.ONE));
+    BigInt phi = p.subtract(BigInt.ONE).multiply(q.subtract(BigInt.ONE));
 
-    this.e = new BigInt("3");
-    while (phi.gcd(this.e).intValue() > 1) {
-      this.e = this.e.add(new BigInt("2"));
+    this.e = BigInt.probablePrime(this.bits / 2, r);
+    while (phi.gcd(this.e).compareTo(BigInt.ONE) > 0 && this.e.compareTo(phi) < 0) {
+      this.e.add(BigInt.ONE);
     }
     this.d = this.e.modInverse(phi);
   }
