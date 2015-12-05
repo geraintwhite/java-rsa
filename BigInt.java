@@ -29,7 +29,7 @@ public class BigInt {
   public int signum() { return this.x.signum(); }
   public int compareTo(BigInt x) { return this.x.compareTo(x.x); }
 
-  /* Simple arithmetic methods pass through to BigInteger methods */
+  /* BigInt arithmetic methods pass through to BigInteger methods */
   public BigInt and(BigInt x) { return new BigInt(this.x.and(x.x)); }
   public BigInt mod(BigInt x) { return new BigInt(this.x.mod(x.x)); }
   public BigInt add(BigInt x) { return new BigInt(this.x.add(x.x)); }
