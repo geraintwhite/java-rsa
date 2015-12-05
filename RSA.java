@@ -39,8 +39,8 @@ public class RSA {
   public void generateKeys() {
     SecureRandom r = new SecureRandom();
 
-    BigInt p = new BigInt(this.bits / 2, 100, r);
-    BigInt q = new BigInt(this.bits / 2, 100, r);
+    BigInt p = BigInt.probablePrime(this.bits, r);
+    BigInt q = BigInt.probablePrime(this.bits, r);
 
     this.n = p.multiply(q);
     BigInt phi = (p.subtract(BigInt.ONE)).multiply(q.subtract(BigInt.ONE));

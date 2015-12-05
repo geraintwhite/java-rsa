@@ -18,7 +18,6 @@ public class BigInt {
   /* BigInt contstructors compatible with BigInteger */
   public BigInt(BigInteger x) { this.x = x; }
   public BigInt(String x) { this.x = new BigInteger(x); }
-  public BigInt(int b, int c, Random r) { this.x = new BigInteger(b, c, r); }
   public BigInt(byte[] b) { this.x = new BigInteger(b); }
 
   /* BigInt helper methods pass through to BigInteger methods */
@@ -39,6 +38,17 @@ public class BigInt {
   public BigInt divide(BigInt x) { return new BigInt(this.x.divide(x.x)); }
   public BigInt shiftRight(int x) { return new BigInt(this.x.shiftRight(x)); }
 
+  /**
+   * Returns BigInt that is probably a prime number
+   *
+   * @param  bits the bit length of the BigInt to be returned
+   * @param  rnd  the random number generator to use
+   * @return      BigInt that will probably be prime
+   */
+  public static BigInt probablePrime(int bits, Random rnd) {
+    // TODO implement probablePrime method
+    return new BigInt(BigInteger.probablePrime(bits, rnd));
+  }
 
   /**
    * Returns BigInt with value (this<sup>exponent</sup> mod modulus)
