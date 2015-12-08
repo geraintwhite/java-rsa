@@ -38,19 +38,17 @@ public class RSA {
   public void generateKeys() {
     SecureRandom r = new SecureRandom();
 
-    BigInt n, e, d;
-
     BigInt p = BigInt.probablePrime(this.bits, r);
     BigInt q = BigInt.probablePrime(this.bits, r);
 
-    n = p.multiply(q);
+    BigInt n = p.multiply(q);
     BigInt phi = p.subtract(BigInt.ONE).multiply(q.subtract(BigInt.ONE));
 
-    e = BigInt.probablePrime(this.bits / 2, r);
+    BigInt e = BigInt.probablePrime(this.bits / 2, r);
     while (phi.gcd(e).compareTo(BigInt.ONE) > 0 && e.compareTo(phi) < 0) {
       e.add(BigInt.ONE);
     }
-    d = e.modInverse(phi);
+    BigInt d = e.modInverse(phi);
 
     this.publicKey = new Key(e, n);
     this.privateKey = new Key(d, n);
