@@ -25,10 +25,25 @@ public class RSATests {
   }
 
   @Test
+  public void getPrivateKey() {
+    RSA rsa = new RSA(publicKey, privateKey);
+    Key key = rsa.getPrivateKey();
+    assertEquals(d, key.exponent);
+    assertEquals(n, key.modulus);
+  }
+
+  @Test
   public void encrypt() {
     RSA rsa = new RSA(publicKey);
     String ciphertext = "5061796068475328011788717651058513190497549134858034282832411873059321079498213788579014387802345422335";
     assertEquals(ciphertext, rsa.encrypt(plaintext));
+  }
 
+  @Test
+  public void decrypt() {
+    RSA rsa = new RSA(publicKey, privateKey);
+    RSA rsa2 = new RSA(rsa.getPublicKey());
+    String ciphertext = rsa2.encrypt(plaintext);
+    assertEquals(plaintext, rsa.decrypt(ciphertext));
   }
 }
