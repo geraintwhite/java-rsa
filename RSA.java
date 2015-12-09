@@ -14,6 +14,17 @@ public class RSA {
   private int bits;
 
   /**
+   * Create instance with public/private key pair
+   *
+   * @param publicKey  public key object to store
+   * @param privateKey private key object to store
+   */
+  public RSA(Key publicKey, Key privateKey) {
+    this.publicKey = publicKey;
+    this.privateKey = privateKey;
+  }
+
+  /**
    * Create instance with someone else's public key
    *
    * @param publicKey public key object to store
