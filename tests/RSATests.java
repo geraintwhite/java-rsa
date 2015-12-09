@@ -33,6 +33,18 @@ public class RSATests {
   }
 
   @Test
+  public void generateKeys() {
+    int bits = 128;
+    RSA rsa = new RSA(bits);
+    BigInt e = rsa.getPublicKey().exponent;
+    BigInt n = rsa.getPublicKey().modulus;
+    BigInt two = new BigInt("2");
+
+    assertEquals(1, e.compareTo(two.pow(bits / 2 - 1)));
+    assertEquals(1, n.compareTo(two.pow(2 * (bits - 1))));
+  }
+
+  @Test
   public void encrypt() {
     RSA rsa = new RSA(publicKey);
     String ciphertext = "5061796068475328011788717651058513190497549134858034282832411873059321079498213788579014387802345422335";
