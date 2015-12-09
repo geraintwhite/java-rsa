@@ -40,6 +40,16 @@ public class BigInt {
   public BigInt pow(int x) { return new BigInt(this.x.pow(x)); }
 
   /**
+   * Returns BigInt instance from double
+   *
+   * @param  x the double to be converted to BigInt
+   * @return   BigInt from double value
+   */
+  public static BigInt valueOf(double x) {
+    return new BigInt(BigInteger.valueOf((long) x));
+  }
+
+  /**
    * Returns BigInt that is probably a prime number
    *
    * @param  bits the bit length of the BigInt to be returned
