@@ -37,6 +37,7 @@ public class BigInt {
   public BigInt multiply(BigInt x) { return new BigInt(this.x.multiply(x.x)); }
   public BigInt divide(BigInt x) { return new BigInt(this.x.divide(x.x)); }
   public BigInt shiftRight(int x) { return new BigInt(this.x.shiftRight(x)); }
+  public BigInt pow(int x) { return new BigInt(this.x.pow(x)); }
 
   /**
    * Returns BigInt that is probably a prime number
