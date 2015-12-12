@@ -75,22 +75,36 @@ public class RSA {
    * Encrypt a message with the stored public key
    *
    * @param  message text to be encrypted
-   * @return         encrypted text
+   * @return         encrypted message as BigInt[]
    */
-  public String encrypt(String message) {
-    BigInt bytes = new BigInt(message.getBytes());
-    return bytes.modPow(publicKey.exponent, publicKey.modulus).toString();
+  public BigInt[] encrypt(String message) {
+    int bs = (publicKey.modulus.bitLength() - 1) / 8;
+    byte[] bytes = message.getBytes();
+
+    int start = 0;
+    BigInt[] out = new BigInt[(int) Math.ceil(bytes.length / (double) bs)];
+    for (int i = 0; i < out.length; i++) {
+      byte[] chunk = Arrays.copyOfRange(bytes, start, Math.min(start + bs, bytes.length));
+      out[i] = new BigInt(chunk).modPow(publicKey.exponent, publicKey.modulus);
+      start += bs;
+    }
+
+    return out;
   }
 
   /**
    * Decrypt a message with the stored private key
    *
-   * @param  message text to be decrypted
-   * @return         decrypted text
+   * @param  bytes BigInt[] containing encrypted text
+   * @return       decrypted text
    */
-  public String decrypt(String message) {
-    BigInt bytes = new BigInt(message);
-    return new String(bytes.modPow(privateKey.exponent, privateKey.modulus).toByteArray());
+  public String decrypt(BigInt[] bytes) {
+    String out = "";
+    for (int i = 0; i < bytes.length; i++) {
+      BigInt chunk = bytes[i].modPow(privateKey.exponent, privateKey.modulus);
+      out += new String(chunk.toByteArray());
+    }
+    return out;
   }
 
   /**
