@@ -28,6 +28,7 @@ public class BigInt {
   public byte[] toByteArray() { return this.x.toByteArray(); }
   public int signum() { return this.x.signum(); }
   public int compareTo(BigInt x) { return this.x.compareTo(x.x); }
+  public int bitLength() { return this.x.bitLength(); }
 
   /* BigInt arithmetic methods pass through to BigInteger methods */
   public BigInt and(BigInt x) { return new BigInt(this.x.and(x.x)); }
