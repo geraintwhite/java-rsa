@@ -144,7 +144,7 @@ public class CLI {
         } else {
           RSA rsa = new RSA();
           rsa.importPublicKey(readRSAKey(inkey));
-          writeOutput(rsa.encrypt(readInput(input)), output);
+          writeOutput(BigInt.formatArray(rsa.encrypt(readInput(input))), output);
         }
         break;
       case "decrypt":
@@ -153,7 +153,7 @@ public class CLI {
         } else {
           RSA rsa = new RSA();
           rsa.importPrivateKey(readRSAKey(inkey));
-          writeOutput(rsa.decrypt(readInput(input)), output);
+          writeOutput(rsa.decrypt(BigInt.unformatArray(readInput(input))), output);
         }
         break;
       default:
