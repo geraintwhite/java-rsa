@@ -11,51 +11,56 @@ import Assignment2.Key;
  */
 public class RSA {
   private Key privateKey, publicKey;
-  private int bits;
 
   /**
-   * Create instance with public/private key pair
+   * Create new RSA instance
+   */
+  public RSA() {}
+
+  /**
+   * Import public key object
    *
-   * @param publicKey  public key object to store
+   * @param publicKey public key object to store
+   */
+  public void importPublicKey(Key publicKey) {
+    this.publicKey = publicKey;
+  }
+
+  /**
+   * Import private key object
+   *
    * @param privateKey private key object to store
    */
-  public RSA(Key publicKey, Key privateKey) {
+  public void importPrivateKey(Key privateKey) {
+    this.privateKey = privateKey;
+  }
+
+  /**
+   * Import public/private key pair
+   *
+   * @param publicKey public key object to store
+   * @param privateKey private key object to store
+   */
+  public void importKeyPair(Key publicKey, Key privateKey) {
     this.publicKey = publicKey;
     this.privateKey = privateKey;
   }
 
   /**
-   * Create instance with someone else's public key
-   *
-   * @param publicKey public key object to store
-   */
-  public RSA(Key publicKey) {
-    this.publicKey = publicKey;
-  }
-
-  /**
-   * Create instance with new keyset
+   * Generate new public/private key pair
    *
    * @param bits number of bits to generate keys from
    */
-  public RSA(int bits) {
-    this.bits = bits;
-    this.generateKeys();
-  }
-
-  /**
-   * Generate public/private key pair
-   */
-  public void generateKeys() {
+  public void generateKeys(int bits) {
     SecureRandom r = new SecureRandom();
 
-    BigInt p = BigInt.probablePrime(this.bits, r);
-    BigInt q = BigInt.probablePrime(this.bits, r);
+    BigInt p = BigInt.probablePrime(bits, r);
+    BigInt q = BigInt.probablePrime(bits, r);
 
     BigInt n = p.multiply(q);
     BigInt phi = p.subtract(BigInt.ONE).multiply(q.subtract(BigInt.ONE));
 
-    BigInt e = BigInt.probablePrime(this.bits / 2, r);
+    BigInt e = BigInt.probablePrime(bits / 2, r);
     while (phi.gcd(e).compareTo(BigInt.ONE) > 0 && e.compareTo(phi) < 0) {
       e.add(BigInt.ONE);
     }
@@ -106,8 +111,10 @@ public class RSA {
   }
 
   public static void main(String[] args) {
-    RSA rsa = new RSA(2048);
-    RSA rsa2 = new RSA(rsa.getPublicKey());
+    RSA rsa = new RSA();
+    rsa.generateKeys(2048);
+    RSA rsa2 = new RSA();
+    rsa2.importPublicKey(rsa.getPublicKey());
 
     String plaintext = "The quick brown fox jumps over the lazy dog";
     System.out.println("Plaintext: " + plaintext);
