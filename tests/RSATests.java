@@ -51,8 +51,12 @@ public class RSATests {
   public void encrypt() {
     RSA rsa = new RSA();
     rsa.importPublicKey(publicKey);
-    String ciphertext = "5061796068475328011788717651058513190497549134858034282832411873059321079498213788579014387802345422335";
-    assertEquals(ciphertext, rsa.encrypt(plaintext));
+
+    String ciphertext =
+      "1275967159186200292326728017576312259056904725393963606173652613920805856688384831556518334396764989782\n" +
+      "3363752731410316226189204573338362889768641187507434297506172396794418275834428758631966560061198806960";
+
+    assertEquals(ciphertext, BigInt.formatArray(rsa.encrypt(plaintext)));
   }
 
   @Test
@@ -61,7 +65,8 @@ public class RSATests {
     rsa.importKeyPair(publicKey, privateKey);
     RSA rsa2 = new RSA();
     rsa2.importPublicKey(rsa.getPublicKey());
-    String ciphertext = rsa2.encrypt(plaintext);
+
+    BigInt[] ciphertext = rsa2.encrypt(plaintext);
     assertEquals(plaintext, rsa.decrypt(ciphertext));
   }
 }
