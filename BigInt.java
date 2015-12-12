@@ -115,4 +115,34 @@ public class BigInt {
   public BigInt gcd(BigInt x) {
     return x.isZero() ? this : x.gcd(this.mod(x));
   }
+
+  /**
+   * Return a stringified version of a BigInt array
+   *
+   * @param   array BigInt array to stringify
+   * @return        string version of array
+   */
+  public static String formatArray(BigInt[] array) {
+    String out = "", delim = "";
+    for (BigInt item : array) {
+      out += delim + item;
+      delim = "\n";
+    }
+    return out;
+  }
+
+  /**
+   * Convert a string of newline separated BigInts to a BigInt array
+   *
+   * @param   array string version of array
+   * @return        BigInt array
+   */
+  public static BigInt[] unformatArray(String array) {
+    String lines[] = array.split("\\r?\\n");
+    BigInt[] out = new BigInt[lines.length];
+    for (int i = 0; i < lines.length; i++) {
+      out[i] = new BigInt(lines[i]);
+    }
+    return out;
+  }
 }
