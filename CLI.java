@@ -16,23 +16,18 @@ public class CLI {
   public static void parseOptions(String[] args) {
     for (ArgParse.Option option : ArgParse.parse(args)) {
       switch (option.flag) {
-        case "-g":
         case "--genkeys":
           method = "genkeys";
           break;
-        case "-e":
         case "--encrypt":
           method = "encrypt";
           break;
-        case "-d":
         case "--decrypt":
           method = "decrypt";
           break;
-        case "-i":
         case "--input":
           input = getOpt(option);
           break;
-        case "-o":
         case "--output":
           output = getOpt(option);
           break;
@@ -45,19 +40,18 @@ public class CLI {
         case "--outpriv":
           outpriv = getOpt(option);
           break;
-        case "-h":
         case "--help":
           System.out.println(
             "Help:\n" +
-            "-g|--genkeys        generate RSA public/private key pair\n" +
-            "-e|--encrypt        encrypt the input using public key\n" +
-            "-d|--decrypt        decrypt the input using private key\n" +
-            "-i|--input    FILE  input file to read from (stdin by default)\n" +
-            "-o|--output   FILE  output file to write to (stdout by default)\n" +
-            "--inkey       FILE  RSA key to use for encrypting/decrypting\n" +
-            "--outpub      FILE  file to write RSA public key to\n" +
-            "--outpriv     FILE  file to write RSA private key to\n" +
-            "-h|--help           show this help text"
+            "--genkeys        generate RSA public/private key pair\n" +
+            "--encrypt        encrypt the input using public key\n" +
+            "--decrypt        decrypt the input using private key\n" +
+            "--input    FILE  input file to read from (stdin by default)\n" +
+            "--output   FILE  output file to write to (stdout by default)\n" +
+            "--inkey    FILE  RSA key to use for encrypting/decrypting\n" +
+            "--outpub   FILE  file to write RSA public key to\n" +
+            "--outpriv  FILE  file to write RSA private key to\n" +
+            "--help           show this help text"
           );
           break;
         default:
@@ -76,12 +70,13 @@ public class CLI {
   }
 
   public static String readInput(String path) {
-    String out = "", line;
+    String out = "", delim = "", line;
     try {
       BufferedReader br = new BufferedReader(
         path == null ? new InputStreamReader(System.in) : new FileReader(path));
       while ((line = br.readLine()) != null) {
-        out += line + '\n';
+        out += delim + line;
+        delim = "\n";
       }
       br.close();
     } catch (IOException e) {
