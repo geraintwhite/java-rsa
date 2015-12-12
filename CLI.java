@@ -87,7 +87,7 @@ public class CLI {
   public static void writeOutput(String data, String path) {
     try {
       PrintWriter out = new PrintWriter(path == null ? System.out : new FileOutputStream(path));
-      out.print(data);
+      out.println(data);
       out.close();
     } catch (FileNotFoundException e) {
       System.out.printf("Cannot write to file %s\n", path);
