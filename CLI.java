@@ -1,11 +1,10 @@
 package Assignment2;
 
 import java.io.*;
-import java.util.Scanner;
-import Utils.ArgParse;
 import Assignment2.BigInt;
 import Assignment2.RSA;
 import Assignment2.Key;
+import Utils.ArgParse;
 
 public class CLI {
   public static String method = "", input, output, inkey, outpub, outpriv;
