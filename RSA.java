@@ -1,6 +1,7 @@
 package Assignment2;
 
-import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Random;
 import Assignment2.BigInt;
 import Assignment2.Key;
 
@@ -52,7 +53,7 @@ public class RSA {
    * @param bits number of bits to generate keys from
    */
   public void generateKeys(int bits) {
-    SecureRandom r = new SecureRandom();
+    Random r = new Random();
 
     BigInt p = BigInt.probablePrime(bits, r);
     BigInt q = BigInt.probablePrime(bits, r);
