@@ -18,7 +18,8 @@ public class RSATests {
 
   @Test
   public void getPublicKey() {
-    RSA rsa = new RSA(publicKey);
+    RSA rsa = new RSA();
+    rsa.importPublicKey(publicKey);
     Key key = rsa.getPublicKey();
     assertEquals(e, key.exponent);
     assertEquals(n, key.modulus);
@@ -26,7 +27,8 @@ public class RSATests {
 
   @Test
   public void getPrivateKey() {
-    RSA rsa = new RSA(publicKey, privateKey);
+    RSA rsa = new RSA();
+    rsa.importKeyPair(publicKey, privateKey);
     Key key = rsa.getPrivateKey();
     assertEquals(d, key.exponent);
     assertEquals(n, key.modulus);
@@ -35,7 +37,8 @@ public class RSATests {
   @Test
   public void generateKeys() {
     int bits = 128;
-    RSA rsa = new RSA(bits);
+    RSA rsa = new RSA();
+    rsa.generateKeys(128);
     BigInt e = rsa.getPublicKey().exponent;
     BigInt n = rsa.getPublicKey().modulus;
     BigInt two = new BigInt("2");
@@ -46,15 +49,18 @@ public class RSATests {
 
   @Test
   public void encrypt() {
-    RSA rsa = new RSA(publicKey);
+    RSA rsa = new RSA();
+    rsa.importPublicKey(publicKey);
     String ciphertext = "5061796068475328011788717651058513190497549134858034282832411873059321079498213788579014387802345422335";
     assertEquals(ciphertext, rsa.encrypt(plaintext));
   }
 
   @Test
   public void decrypt() {
-    RSA rsa = new RSA(publicKey, privateKey);
-    RSA rsa2 = new RSA(rsa.getPublicKey());
+    RSA rsa = new RSA();
+    rsa.importKeyPair(publicKey, privateKey);
+    RSA rsa2 = new RSA();
+    rsa2.importPublicKey(rsa.getPublicKey());
     String ciphertext = rsa2.encrypt(plaintext);
     assertEquals(plaintext, rsa.decrypt(ciphertext));
   }
