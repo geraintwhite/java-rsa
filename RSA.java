@@ -132,12 +132,12 @@ public class RSA {
     rsa2.importPublicKey(rsa.getPublicKey());
 
     String plaintext = "The quick brown fox jumps over the lazy dog";
-    System.out.println("Plaintext: " + plaintext);
+    System.out.println("Plaintext:\n" + plaintext);
 
-    String ciphertext = rsa2.encrypt(plaintext);
-    System.out.println("Ciphertext: " + ciphertext);
+    BigInt[] ciphertext = rsa2.encrypt(plaintext);
+    System.out.println("\nCiphertext:\n" + BigInt.formatArray(ciphertext));
 
     plaintext = rsa.decrypt(ciphertext);
-    System.out.println("Plaintext: " + plaintext);
+    System.out.println("\nPlaintext:\n" + plaintext);
   }
 }
