@@ -1,9 +1,9 @@
-package Assignment2.tests;
+package RSATests;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import Assignment2.Key;
-import Assignment2.BigInt;
+import RSA.Key;
+import RSA.BigInt;
 
 public class KeyTests {
   @Test

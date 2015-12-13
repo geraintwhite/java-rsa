@@ -1,6 +1,4 @@
-package Assignment2;
-
-import Assignment2.BigInt;
+package RSA;
 
 /**
  * Key class

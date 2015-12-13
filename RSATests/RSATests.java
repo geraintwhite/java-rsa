@@ -1,10 +1,10 @@
-package Assignment2.tests;
+package RSATests;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import Assignment2.RSA;
-import Assignment2.Key;
-import Assignment2.BigInt;
+import RSA.RSA;
+import RSA.Key;
+import RSA.BigInt;
 
 public class RSATests {
   private static String plaintext = "The quick brown fox jumps over the lazy dog";

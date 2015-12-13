@@ -1,9 +1,6 @@
-package Assignment2;
+package RSA;
 
 import java.io.*;
-import Assignment2.BigInt;
-import Assignment2.RSA;
-import Assignment2.Key;
 import Utils.ArgParse;
 
 public class CLI {

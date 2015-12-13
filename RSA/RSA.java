@@ -1,9 +1,7 @@
-package Assignment2;
+package RSA;
 
 import java.util.Arrays;
 import java.util.Random;
-import Assignment2.BigInt;
-import Assignment2.Key;
 
 /**
  * RSA class

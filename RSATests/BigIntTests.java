@@ -1,8 +1,8 @@
-package Assignment2.tests;
+package RSATests;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import Assignment2.BigInt;
+import RSA.BigInt;
 
 public class BigIntTests {
   @Test
