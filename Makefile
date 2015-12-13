@@ -1,11 +1,14 @@
 J = java
 JC = javac
+JAR = jar
 JDOC = javadoc
 JUNIT = org.junit.runner.JUnitCore
 
 JFLAGS = -Xlint:unchecked
 CLASSPATH = lib/*:.jar
 
+JARFILE = RSA.jar
+MAIN = RSA.CLI
 DOCS = doc
 SOURCE = src
 OUTPUT = build
@@ -14,26 +17,25 @@ SOURCES = $(shell find $(SOURCE) -name '*.java')
 CLASSES = $(patsubst $(SOURCE)/%.java,$(OUTPUT)/%.class, $(SOURCES))
 TESTS = $(filter %Tests.class, $(CLASSES))
 
-ARGS = $(filter-out $@, $(MAKECMDGOALS))
-
 define get_class_name
-	$(subst .class,, $(subst /,., $(patsubst $(OUTPUT)/%,%, $(1))))
+$(subst .class,,$(subst /,.,$(patsubst $(OUTPUT)/%,%,$(1))))
 endef
 
-all: $(CLASSES)
+all: $(CLASSES) $(JARFILE)
 
 clean:
-	rm -r $(OUTPUT)/*
+	rm -r $(OUTPUT)
+	rm -r $(JARFILE)
 
 test:
-	$(eval ARGS = $(if $(ARGS), $(ARGS), $(call get_class_name, $(TESTS))))
-	$(J) -cp $(OUTPUT):$(CLASSPATH) $(JUNIT) $(ARGS)
+	$(J) -cp $(OUTPUT):$(CLASSPATH) $(JUNIT) $(call get_class_name,$(TESTS))
 
 docs:
-	$(JDOC) -d $(DOCS) -classpath $(OUTPUT):$(CLASSPATH) -sourcepath $(SOURCES)
+	$(JDOC) -d $(DOCS) -classpath $(OUTPUT):$(CLASSPATH) $(SOURCES)
 
-run:
-	$(J) -cp $(OUTPUT):$(CLASSPATH) $(ARGS)
+$(JARFILE): $(CLASSES)
+	$(JAR) cvfe $(JARFILE) $(MAIN) -C $(OUTPUT) .
+	@chmod +x $(JARFILE)
 
 $(OUTPUT)/%.class: $(SOURCE)/%.java
 	@mkdir -p $(@D)
