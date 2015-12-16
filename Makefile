@@ -7,7 +7,7 @@ JUNIT = org.junit.runner.JUnitCore
 JFLAGS = -Xlint:unchecked
 CLASSPATH = lib/*:.jar
 
-JARFILE = RSA.jar
+JARFILE = rsa.jar
 MAIN = RSA.CLI
 DOCS = doc
 SOURCE = src
@@ -34,8 +34,7 @@ docs:
 	$(JDOC) -d $(DOCS) -classpath $(OUTPUT):$(CLASSPATH) $(SOURCES)
 
 $(JARFILE): $(CLASSES)
-	$(JAR) cvfe $(JARFILE) $(MAIN) -C $(OUTPUT) .
-	@chmod +x $(JARFILE)
+	$(JAR) cfe $(JARFILE) $(MAIN) -C $(OUTPUT) .
 
 $(OUTPUT)/%.class: $(SOURCE)/%.java
 	@mkdir -p $(@D)
