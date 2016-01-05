@@ -1,6 +1,8 @@
 # java-rsa
 
 ```
+$ java -jar rsa.jar --help
+
 Help:
 --genkeys        generate RSA public/private key pair
 --encrypt        encrypt the input using public key
